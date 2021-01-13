@@ -1,12 +1,14 @@
-import java.util.HashMap;
+
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class FirstNonRepeatingCharacter {
 
     public static void main(String[] args)  {
-        String testString = "iittss  aa  ggoodd  aawffuull   ssmmaall  aaffaaiirr";
+        String testString = "iittss  aa  ggoodd  aawffubzull   ssmcmaall  aaffwaaiirr";
 
-        Map<Character,Integer> characterIntegerMap = new HashMap<>();
+
+        LinkedHashMap<Character,Integer> characterIntegerMap = new LinkedHashMap<>(26);
 
         char ch;
         for (int i = 0; i < testString.length();i++){
@@ -16,14 +18,13 @@ public class FirstNonRepeatingCharacter {
             } else characterIntegerMap.put(ch,1);
         }
 
-        boolean dupeNotFound = true;
-        int i = 0;
-        while (dupeNotFound){
-            if (characterIntegerMap.get(testString.charAt(i))==1){
-                System.out.println("The first non-dupe character is "+ testString.charAt(i));
-                dupeNotFound = false;
-            } else i++;
+        for (Map.Entry<Character,Integer> nonDupe : characterIntegerMap.entrySet()){
+            if (nonDupe.getValue()==1){
+                System.out.println("First non-dupe character is : "+ nonDupe.getKey());
+                break;
+            }
         }
+
 
     }
 
