@@ -1,30 +1,38 @@
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-import static java.util.stream.Collectors.counting;
 
 public class FirstNonRepeatingCharacterFunc {
 
-    public static void main(String[] args) throws IOException {
-        String fileContents = Files.readString(Paths.get("C:\\Users\\leste\\IdeaProjects\\Leonard\\src\\lifeonmars.txt"));
-        Set<Character> nonDupesSet = fileContents.chars()
-                .mapToObj(c -> (char) c)
-                .collect(Collectors.groupingBy(c -> c, counting()))
-                .entrySet().stream()
-                .filter(x -> x.getValue() < 2)
+    public static void main(String[] args)  {
+
+        String testString2 = "length for testString2 , the heart sigln is ";
+
+        Set<Character> uniqueChars  = testString2.chars()
+                .mapToObj(c->(char) c)
+                .collect(Collectors.groupingBy(c->c,Collectors.counting()))
+                .entrySet()
+                .stream()
+                .filter(k -> k.getValue() == 1)
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toSet());
 
-     for (int i=0; i< fileContents.length();i++){
-         if (nonDupesSet.contains(fileContents.charAt(i))) {
-             System.out.println("the first non-duplicated character in the string is : "+fileContents.charAt(i));
-             break;
-         }
-     }
+        Optional<Character> firstNonRepeat = testString2.chars()
+                .mapToObj(c -> (char) c)
+                .filter(uniqueChars::contains)
+                .findFirst();
+
+        System.out.println(firstNonRepeat);
 
     }
-}
+
+
+
+
+     }
+
+
+
+
